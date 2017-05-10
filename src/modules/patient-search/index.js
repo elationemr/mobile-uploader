@@ -1,0 +1,1 @@
+export { getPatientSearchResults } from './patientSearchSelectors';
