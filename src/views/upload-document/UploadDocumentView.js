@@ -1,32 +1,57 @@
 import React from 'react';
-import { Image, StyleSheet } from 'react-native';
+import { Text } from 'react-native';
+import Expo from 'expo';
 import BaseView from 'components/BaseView';
+import NavBarButton from 'components/NavBarButton';
+import Tabs, { TabItem } from 'components/Tabs';
 
 
 class UploadDocumentView extends React.Component {
 
   static route = {
     navigationBar: {
-      title: 'Upload Document',
+      title: 'Other Document',
+      renderRight: () => <NavBarButton title="Upload" />,
     },
   }
 
+  state = {
+    activeTab: "Photo",
+    uri: null,
+    name: null,
+    size: 0,
+  }
+
+  handleTabActivate = (title) => {
+    this.setState({ activeTab: title });
+  }
+
+  handleDocumentSelect = async () => {
+    let result = await Expo.DocumentPicker.getDocumentAsync({});
+
+    if (result.type === 'cancel') {
+      return;
+    }
+
+    this.setState({ uri: result.uri, name: result.name });
+  }
+
   render() {
+    const { activeTab, uri, name, size } = this.state;
+
     return (
       <BaseView>
-        <Image style={styles.image} />
-        <Image style={styles.image} />
+        <Tabs activeTab={activeTab} onActivate={this.handleTabActivate}>
+          <TabItem name="Photo">
+            <Text>Photo content</Text>
+          </TabItem>
+          <TabItem name="Document">
+            <Text>Document content</Text>
+          </TabItem>
+        </Tabs>
       </BaseView>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  image: {
-    borderWidth: 1,
-    borderColor: '#999',
-    flex: 1,
-  },
-});
 
 export default UploadDocumentView;
