@@ -6,6 +6,7 @@ import {
   NavigationContext,
 } from '@expo/ex-navigation';
 import { ActionSheetProvider } from '@expo/react-native-action-sheet';
+import { colors } from 'styles';
 import store from './store';
 import router from './router';
 
@@ -24,7 +25,7 @@ export default class App extends React.Component {
             <StackNavigation
               defaultRouteConfig={{
                 navigationBar: {
-                  backgroundColor: '#1c94bc',
+                  backgroundColor: colors.APP_PRIMARY,
                   tintColor: '#fff',
                 },
               }}
