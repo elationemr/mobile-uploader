@@ -20,11 +20,11 @@ const styles = StyleSheet.create({
     flex: 1,
   },
   default: {
-    alignItems: 'center',
     justifyContent: 'flex-start',
+    alignItems: 'stretch',
   },
   centered: {
-    alignItems: 'center',
     justifyContent: 'center',
+    alignItems: 'center',
   },
 });

@@ -128,7 +128,6 @@ class PatientInfoBox extends React.Component {
 
 const styles = StyleSheet.create({
   container: {
-    alignSelf: 'stretch',
     flexDirection: 'row',
     padding: 20,
   },

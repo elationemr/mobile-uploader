@@ -49,17 +49,10 @@ class PatientSearchView extends React.Component {
           renderItem={this.renderResult}
           keyExtractor={this.extractId}
           getItemLayout={this.getItemLayout}
-          style={styles.list}
         />
       </BaseView>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  list: {
-    alignSelf: 'stretch',
-  },
-});
 
 export default connect(mapStateToProps)(PatientSearchView);

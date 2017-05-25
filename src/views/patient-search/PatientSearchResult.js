@@ -29,7 +29,7 @@ class PatientSearchResult extends React.Component {
     const { patient } = this.props;
 
     return (
-      <TouchableHighlight onPress={this.handlePress} style={styles.wrapper} underlayColor="#e6f7ff">
+      <TouchableHighlight onPress={this.handlePress} underlayColor="#e6f7ff">
         <View style={styles.container}>
           <PatientIcon uri={patient.photoUri} sex={patient.sex} />
           <View style={styles.description}>
@@ -43,9 +43,6 @@ class PatientSearchResult extends React.Component {
 }
 
 const styles = StyleSheet.create({
-  wrapper: {
-    alignSelf: 'stretch',
-  },
   container: {
     borderBottomWidth: StyleSheet.hairlineWidth,
     borderColor: '#aaa',
