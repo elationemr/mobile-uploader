@@ -1,0 +1,5 @@
+export default {
+  GUTTER_WIDTH_SMALL: 10,
+  GUTTER_WIDTH_LARGE: 20,
+  ROW_HEIGHT_SMALL: 40,
+};

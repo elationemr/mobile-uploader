@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 import { withNavigation } from '@expo/ex-navigation';
 import PatientIcon from 'components/PatientIcon';
 import { selectPatient } from 'modules/patient';
+import { dimensions } from 'styles';
 
 
 const mapStateToProps = (state, ownProps) => ({
@@ -47,10 +48,10 @@ const styles = StyleSheet.create({
     borderBottomWidth: StyleSheet.hairlineWidth,
     borderColor: '#aaa',
     flexDirection: 'row',
-    padding: 10,
+    padding: dimensions.GUTTER_WIDTH_SMALL,
   },
   description: {
-    marginLeft: 10,
+    marginLeft: dimensions.GUTTER_WIDTH_SMALL,
   },
   name: {
     fontSize: 15,

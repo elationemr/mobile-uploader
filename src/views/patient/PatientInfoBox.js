@@ -6,6 +6,7 @@ import { connectActionSheet } from '@expo/react-native-action-sheet';
 import PatientPortrait from 'components/PatientPortrait';
 import { getSelectedPatient } from 'modules/patient';
 import { setPatientPhoto, removePatientPhoto } from 'modules/entities';
+import { dimensions } from 'styles';
 
 
 const mapStateToProps = state => ({
@@ -129,7 +130,7 @@ class PatientInfoBox extends React.Component {
 const styles = StyleSheet.create({
   container: {
     flexDirection: 'row',
-    padding: 20,
+    padding: dimensions.GUTTER_WIDTH_LARGE,
   },
   photoWrapper: {
     alignItems: 'center',
@@ -139,7 +140,7 @@ const styles = StyleSheet.create({
   },
   info: {
     flex: 1,
-    marginLeft: 15,
+    marginLeft: dimensions.GUTTER_WIDTH_LARGE,
   },
   name: {
     fontWeight: 'bold',

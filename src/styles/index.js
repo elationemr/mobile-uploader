@@ -1,4 +1,2 @@
-import colors from './colors';
-
-
-export { colors };
+export colors from './colors';
+export dimensions from './dimensions';

@@ -1,5 +1,6 @@
 import React from 'react';
 import { StyleSheet, TextInput } from 'react-native';
+import { dimensions } from 'styles';
 
 
 class PatientSearchInput extends React.Component {
@@ -16,7 +17,7 @@ const styles = StyleSheet.create({
     borderRadius: 3,
     flex: 1,
     marginVertical: 5,
-    marginHorizontal: 10,
+    marginHorizontal: dimensions.GUTTER_WIDTH_SMALL,
     paddingHorizontal: 7,
   },
 });
