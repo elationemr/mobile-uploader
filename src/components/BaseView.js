@@ -4,14 +4,22 @@ import { View, StyleSheet } from 'react-native';
 
 export default class BaseView extends React.Component {
 
+  static propTypes = {
+    centered: React.PropTypes.bool,
+  }
+
   static defaultProps = {
     centered: false,
   }
 
   render() {
-    const { centered, children } = this.props;
+    const { centered, children, style } = this.props;
 
-    return <View style={[styles.base, styles[centered ? 'centered' : 'default']]}>{children}</View>;
+    return (
+      <View style={[styles.base, styles[centered ? 'centered' : 'default'], style]}>
+        {children}
+      </View>
+    );
   }
 }
 
