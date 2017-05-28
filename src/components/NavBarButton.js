@@ -4,10 +4,10 @@ import { Platform, StyleSheet, Text, TouchableOpacity } from 'react-native';
 
 export default class NavBarButton extends React.Component {
   render() {
-    const { title } = this.props;
+    const { title, onPress } = this.props;
 
     return (
-      <TouchableOpacity style={styles.wrapper}>
+      <TouchableOpacity style={styles.wrapper} onPress={onPress}>
         <Text style={styles.text}>{title}</Text>
       </TouchableOpacity>
     );
