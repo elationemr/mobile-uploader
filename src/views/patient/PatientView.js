@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import BaseView from 'components/BaseView';
-import WideNavButton from 'components/WideNavButton';
+import WideButton from 'components/WideButton';
 import { getSelectedPatient } from 'modules/patient';
 import PatientInfoBox from './PatientInfoBox';
 
@@ -36,8 +36,8 @@ class PatientView extends React.Component {
     return (
       <BaseView>
         <PatientInfoBox />
-        <WideNavButton title="Upload Insurance Card" onPress={this.handleInsuranceUploadPress} />
-        <WideNavButton title="Upload Other Document" onPress={this.handleDocumentUploadPress} />
+        <WideButton type="nav" title="Upload Insurance Card" onPress={this.handleInsuranceUploadPress} />
+        <WideButton type="nav" title="Upload Other Document" onPress={this.handleDocumentUploadPress} />
       </BaseView>
     );
   }
