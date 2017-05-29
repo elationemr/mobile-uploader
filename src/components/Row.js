@@ -1,6 +1,7 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
-import { colors, dimensions } from 'styles';
+import { StyleSheet } from 'react-native';
+import Sheet from 'components/Sheet';
+import { dimensions } from 'styles';
 
 
 export default class Row extends React.Component {
@@ -16,7 +17,7 @@ export default class Row extends React.Component {
   render() {
     const { padded, style, children } = this.props;
 
-    return <View style={[styles.base, padded && styles.padded, style]}>{children}</View>;
+    return <Sheet style={[styles.base, padded && styles.padded, style]}>{children}</Sheet>;
   }
 }
 
@@ -24,13 +25,8 @@ const styles = StyleSheet.create({
   base: {
     flexDirection: 'row',
     alignItems: 'center',
-    alignSelf: 'stretch',
     justifyContent: 'space-between',
     height: dimensions.ROW_HEIGHT_SMALL,
-    backgroundColor: '#fff',
-    borderColor: colors.HAIRLINE_BORDER,
-    borderTopWidth: StyleSheet.hairlineWidth,
-    borderBottomWidth: StyleSheet.hairlineWidth,
   },
   padded: {
     paddingHorizontal: dimensions.GUTTER_WIDTH_SMALL,

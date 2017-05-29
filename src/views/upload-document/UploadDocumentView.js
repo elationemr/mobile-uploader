@@ -9,8 +9,9 @@ import BaseView from 'components/BaseView';
 import Label from 'components/Label';
 import NavBarButton from 'components/NavBarButton';
 import Picker from 'components/Picker';
-import Row from 'components/Row';
 import RowTextInput from 'components/RowTextInput';
+import Sheet from 'components/Sheet';
+import { colors } from 'styles';
 
 
 const mapStateToProps = state => ({
@@ -100,7 +101,13 @@ class UploadDocumentView extends React.Component {
   }
 
   selectDocument = async () => {
-    let result = await Expo.DocumentPicker.getDocumentAsync({});
+    let result;
+    try {
+      result = await Expo.DocumentPicker.getDocumentAsync({});
+    } catch (error) {
+      Alert.alert('Error', 'There was an error retrieving this document.');
+      return;
+    }
 
     if (result.type === 'cancel') {
       return;
@@ -176,8 +183,8 @@ class UploadDocumentView extends React.Component {
             onChangeText={this.handleTitleChange}
           />
           <Label style={styles.label}>Document (Required)</Label>
-          <TouchableOpacity activeOpacity={0.9} onPress={this.handleDocumentPress}>
-            <Row
+          <TouchableOpacity activeOpacity={0.7} onPress={this.handleDocumentPress}>
+            <Sheet
               style={[
                 styles.docContainer,
                 (!document || document.type === 'document') && { padding: 20 },
@@ -189,11 +196,11 @@ class UploadDocumentView extends React.Component {
               )}
               {document && document.type === 'document' && (
                 <View style={styles.selectedDocument}>
-                  <Ionicons name="md-document" size={64} />
+                  <Ionicons name="md-document" size={48} />
                   <Text>{document.name}</Text>
                 </View>
               )}
-            </Row>
+            </Sheet>
           </TouchableOpacity>
         </ScrollView>
       </BaseView>
@@ -204,13 +211,12 @@ class UploadDocumentView extends React.Component {
 const windowWidth = Dimensions.get('window').width;
 const styles = StyleSheet.create({
   view: {
-    backgroundColor: '#f9f9f9',
+    backgroundColor: colors.FORM_BG,
   },
   label: {
     marginTop: 15,
   },
   docContainer: {
-    height: windowWidth,
     alignItems: 'center',
     justifyContent: 'center',
   },
