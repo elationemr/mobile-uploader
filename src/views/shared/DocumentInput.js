@@ -121,15 +121,10 @@ export default class DocumentInput extends React.Component {
   }
 }
 
-const windowWidth = Dimensions.get('window').width;
 const styles = StyleSheet.create({
   docContainer: {
     alignItems: 'center',
     justifyContent: 'center',
-  },
-  selectedImage: {
-    height: windowWidth,
-    width: windowWidth,
   },
   selectedDocument: {
     alignItems: 'center',

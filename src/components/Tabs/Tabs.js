@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { StyleSheet, View } from 'react-native';
 import TabBarButton from './TabBarButton';
 
 
@@ -8,22 +8,17 @@ export default class Tabs extends React.Component {
   static propTypes = {
     activeTab: React.PropTypes.string.isRequired,
     children: React.PropTypes.node.isRequired,
-    onActivate: React.PropTypes.func.isRequired,
-    flex: React.PropTypes.number,
-  }
-
-  static defaultProps = {
-    flex: 1,
+    onChange: React.PropTypes.func.isRequired,
   }
 
   handleTabActivate = (title) => {
-    const { onActivate } = this.props;
+    const { onChange } = this.props;
 
-    onActivate(title);
+    onChange(title);
   }
 
   render() {
-    const { activeTab, children, flex } = this.props;
+    const { activeTab, children, style } = this.props;
 
     const tabBarButtons = [];
     let activeContent;
@@ -47,7 +42,7 @@ export default class Tabs extends React.Component {
     });
 
     return (
-      <View style={{ alignSelf: 'stretch', flex }}>
+      <View style={[styles.container, style]}>
         <View style={styles.tabBar}>
           {tabBarButtons}
         </View>
@@ -58,8 +53,12 @@ export default class Tabs extends React.Component {
 }
 
 const styles = StyleSheet.create({
+  container: {
+    alignSelf: 'stretch',
+  },
   tabBar: {
     alignSelf: 'stretch',
+    backgroundColor: '#fff',
     height: 45,
     borderBottomWidth: StyleSheet.hairlineWidth,
     borderBottomColor: '#ddd',
