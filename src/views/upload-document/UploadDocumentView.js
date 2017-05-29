@@ -1,16 +1,13 @@
 import React from 'react';
-import { Alert, Dimensions, Image, ScrollView, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { Alert, Dimensions, ScrollView, StyleSheet } from 'react-native';
 import { connect } from 'react-redux';
-import Expo from 'expo';
-import { connectActionSheet } from '@expo/react-native-action-sheet';
-import { Ionicons } from '@expo/vector-icons';
 import { getReportTypes } from 'modules/report-types';
 import BaseView from 'components/BaseView';
 import Label from 'components/Label';
 import NavBarButton from 'components/NavBarButton';
 import Picker from 'components/Picker';
 import RowTextInput from 'components/RowTextInput';
-import Sheet from 'components/Sheet';
+import DocumentInput from 'views/shared/DocumentInput';
 import { colors } from 'styles';
 
 
@@ -18,7 +15,6 @@ const mapStateToProps = state => ({
   reportTypes: getReportTypes(state),
 });
 
-@connectActionSheet
 class UploadDocumentView extends React.Component {
 
   static route = {
@@ -60,16 +56,15 @@ class UploadDocumentView extends React.Component {
     }
   }
 
-  takePhoto = async () => {
-    let result = await Expo.ImagePicker.launchCameraAsync({
-      allowsEditing: true,
-      aspect: [1, 1],
-    });
+  handleDocumentTypeChange = (value) => {
+    this.setState({ reportTypeId: Number(value) });
+  }
 
-    if (result.cancelled) {
-      return;
-    }
+  handleTitleChange = (value) => {
+    this.setState({ title: value });
+  }
 
+  handlePhotoChange = (result) => {
     this.setState({
       document: {
         type: 'photo',
@@ -80,39 +75,7 @@ class UploadDocumentView extends React.Component {
     });
   }
 
-  selectPhoto = async () => {
-    let result = await Expo.ImagePicker.launchImageLibraryAsync({
-      allowsEditing: true,
-      aspect: [1, 1],
-    });
-
-    if (result.cancelled) {
-      return;
-    }
-
-    this.setState({
-      document: {
-        type: 'photo',
-        uri: result.uri,
-        height: result.height,
-        width: result.width,
-      },
-    });
-  }
-
-  selectDocument = async () => {
-    let result;
-    try {
-      result = await Expo.DocumentPicker.getDocumentAsync({});
-    } catch (error) {
-      Alert.alert('Error', 'There was an error retrieving this document.');
-      return;
-    }
-
-    if (result.type === 'cancel') {
-      return;
-    }
-
+  handleDocumentChange = (result) => {
     this.setState({
       document: {
         type: 'document',
@@ -120,43 +83,6 @@ class UploadDocumentView extends React.Component {
         name: result.name,
       },
     });
-  }
-
-  handleDocumentPress = () => {
-    const { showActionSheetWithOptions } = this.props;
-
-    showActionSheetWithOptions(
-      {
-        options: [
-          'Take Photo',
-          'Select Photo From Library',
-          'Select Document',
-          'Cancel',
-        ],
-        cancelButtonIndex: 3,
-      },
-      buttonIndex => {
-        switch (buttonIndex) {
-          case 0:
-            this.takePhoto();
-            break;
-          case 1:
-            this.selectPhoto();
-            break;
-          case 2:
-            this.selectDocument();
-            break;
-        }
-      }
-    );
-  }
-
-  handleDocumentTypeChange = (value) => {
-    this.setState({ reportTypeId: Number(value) });
-  }
-
-  handleTitleChange = (value) => {
-    this.setState({ title: value });
   }
 
   render() {
@@ -183,25 +109,11 @@ class UploadDocumentView extends React.Component {
             onChangeText={this.handleTitleChange}
           />
           <Label style={styles.label}>Document (Required)</Label>
-          <TouchableOpacity activeOpacity={0.7} onPress={this.handleDocumentPress}>
-            <Sheet
-              style={[
-                styles.docContainer,
-                (!document || document.type === 'document') && { padding: 20 },
-              ]}
-            >
-              {!document && <Text>Tap to select document or use photo as document</Text>}
-              {document && document.type === 'photo' && (
-                <Image source={{ uri: document.uri }} style={styles.selectedImage} />
-              )}
-              {document && document.type === 'document' && (
-                <View style={styles.selectedDocument}>
-                  <Ionicons name="md-document" size={48} />
-                  <Text>{document.name}</Text>
-                </View>
-              )}
-            </Sheet>
-          </TouchableOpacity>
+          <DocumentInput
+            document={document}
+            onPhotoChange={this.handlePhotoChange}
+            onDocumentChange={this.handleDocumentChange}
+          />
         </ScrollView>
       </BaseView>
     );
