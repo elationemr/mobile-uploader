@@ -1,14 +1,10 @@
 import React from 'react';
 import { Provider } from 'react-redux';
-import {
-  NavigationProvider,
-  StackNavigation,
-  NavigationContext,
-} from '@expo/ex-navigation';
+import { NavigationProvider, NavigationContext } from '@expo/ex-navigation';
 import { ActionSheetProvider } from '@expo/react-native-action-sheet';
-import { colors } from 'styles';
 import store from './store';
 import router from './router';
+import AppContent from './AppContent';
 
 
 const navigationContext = new NavigationContext({
@@ -17,20 +13,13 @@ const navigationContext = new NavigationContext({
 });
 
 export default class App extends React.Component {
+
   render() {
     return (
       <ActionSheetProvider>
         <Provider store={store}>
           <NavigationProvider context={navigationContext}>
-            <StackNavigation
-              defaultRouteConfig={{
-                navigationBar: {
-                  backgroundColor: colors.APP_PRIMARY,
-                  tintColor: '#fff',
-                },
-              }}
-              initialRoute="patientSearch"
-            />
+            <AppContent />
           </NavigationProvider>
         </Provider>
       </ActionSheetProvider>
