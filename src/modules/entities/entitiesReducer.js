@@ -57,15 +57,6 @@ const initialState = {
       age: 34,
       photoUri: null,
     },
-    2891: {
-      id: 2891,
-      firstName: 'Mary',
-      lastName: 'Jane',
-      sex: 'F',
-      dob: '04/20/00',
-      age: 17,
-      photoUri: null,
-    },
   },
 };
 
