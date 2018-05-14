@@ -1,9 +1,10 @@
 import React from 'react';
 import { Alert, Dimensions, Image, StyleSheet, Text, TouchableOpacity, View } from 'react-native';
-import Expo from 'expo';
+import { DocumentPicker, ImagePicker, Permissions } from 'expo';
 import { connectActionSheet } from '@expo/react-native-action-sheet';
 import { Ionicons } from '@expo/vector-icons';
 import Sheet from 'components/Sheet';
+import takePhotoAsync from 'utils/camera/takePhotoAsync';
 
 
 @connectActionSheet
@@ -29,8 +30,27 @@ export default class DocumentInput extends React.Component {
     };
   }
 
-  takePhoto = async () => {
-    let result = await Expo.ImagePicker.launchCameraAsync({});
+  tryPermissionAsync = async (permission) => {
+    const { status } = await Permissions.getAsync(permission);
+    if (status !== 'granted') {
+      Alert.alert('Please enable permissions in iOS Settings.');
+      return false;
+    }
+    return true;
+  }
+
+  takePhotoAsync = async () => {
+    const result = await takePhotoAsync();
+
+    if (!result) {
+      return;
+    }
+
+    this.props.onPhotoChange(result);
+  }
+
+  selectPhotoAsync = async () => {
+    let result = await ImagePicker.launchImageLibraryAsync({});
 
     if (result.cancelled) {
       return;
@@ -39,20 +59,10 @@ export default class DocumentInput extends React.Component {
     this.props.onPhotoChange(result);
   }
 
-  selectPhoto = async () => {
-    let result = await Expo.ImagePicker.launchImageLibraryAsync({});
-
-    if (result.cancelled) {
-      return;
-    }
-
-    this.props.onPhotoChange(result);
-  }
-
-  selectDocument = async () => {
+  selectDocumentAsync = async () => {
     let result;
     try {
-      result = await Expo.DocumentPicker.getDocumentAsync({});
+      result = await DocumentPicker.getDocumentAsync({});
     } catch (error) {
       Alert.alert('Error', 'There was an error retrieving this document.');
       return;
@@ -81,13 +91,13 @@ export default class DocumentInput extends React.Component {
       buttonIndex => {
         switch (buttonIndex) {
           case 0:
-            this.takePhoto();
+            this.takePhotoAsync();
             break;
           case 1:
-            this.selectPhoto();
+            this.selectPhotoAsync();
             break;
           case 2:
-            this.selectDocument();
+            this.selectDocumentAsync();
             break;
         }
       }

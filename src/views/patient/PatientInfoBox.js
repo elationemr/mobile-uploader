@@ -6,6 +6,7 @@ import { connectActionSheet } from '@expo/react-native-action-sheet';
 import PatientPortrait from 'components/PatientPortrait';
 import { getSelectedPatient } from 'modules/patient';
 import { setPatientPhoto, removePatientPhoto } from 'modules/entities';
+import takePhotoAsync from 'utils/camera/takePhotoAsync';
 import { dimensions } from 'styles';
 
 
@@ -59,12 +60,12 @@ class PatientInfoBox extends React.Component {
   }
 
   takePatientPhoto = async () => {
-    let result = await ImagePicker.launchCameraAsync({
+    const result = await takePhotoAsync({
       allowsEditing: true,
       aspect: [1, 1],
     });
 
-    if (result.cancelled) {
+    if (!result) {
       return;
     }
 

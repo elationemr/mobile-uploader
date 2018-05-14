@@ -10,6 +10,7 @@
       { "src": "./src/components", "expose": "components" },
       { "src": "./src/modules", "expose": "modules" },
       { "src": "./src/styles", "expose": "styles" },
+      { "src": "./src/utils" , "expose": "utils" },
       { "src": "./src/views", "expose": "views" }
     ]]
   ]
